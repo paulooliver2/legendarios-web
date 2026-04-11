@@ -1,0 +1,2 @@
+// TODO: implementar EventCard
+export {}

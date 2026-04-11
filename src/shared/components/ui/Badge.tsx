@@ -1,0 +1,2 @@
+// TODO: implementar Badge
+export {}

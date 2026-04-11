@@ -1,0 +1,2 @@
+// TODO: implementar TeamCard
+export {}
