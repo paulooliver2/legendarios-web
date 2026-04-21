@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { eventsApi } from '../api/events.api'
-import type { EventType } from '@/shared/types/common.types'
+import type { EventType, EventStatus } from '@/shared/types/common.types'
 
-export function useEvents(params?: { page?: number; limit?: number; type?: EventType; published?: boolean }) {
+export function useEvents(params?: { page?: number; limit?: number; type?: EventType; status?: EventStatus }) {
   return useQuery({
     queryKey: ['events', params],
     queryFn: () => eventsApi.list(params).then((r) => r.data),
@@ -20,17 +20,17 @@ export function useEventDetail(id: string) {
 export function useCreateEvent() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (data: { name: string; type: EventType; startDate: string; description?: string }) =>
+    mutationFn: (data: Parameters<typeof eventsApi.create>[0]) =>
       eventsApi.create(data).then((r) => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['events'] }),
   })
 }
 
-export function usePublishEvent(id: string) {
+export function useUpdateEventStatus(id: string) {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (isPublished: boolean) => eventsApi.publish(id, isPublished).then((r) => r.data),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['events', id] }),
+    mutationFn: (status: EventStatus) => eventsApi.updateStatus(id, status).then((r) => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['events'] }),
   })
 }
 

@@ -8,6 +8,23 @@ export interface Person {
   birthDate?: string
   journeyStatus: JourneyStatus
   journeyChangedAt?: string
+
+  numeroLegendario?: string
+  cpf?: string
+  uf?: string
+  cidade?: string
+  cep?: string
+  jaServiu?: boolean
+  certificado?: boolean
+  problemaDeSaude?: boolean
+  igreja?: string
+  nomeLider?: string
+  numeroLider?: string
+  nomeEsposa?: string
+  nomeMae?: string
+  numeroParente?: string
+  photoUrl?: string
+
   createdAt: string
 }
 
@@ -16,4 +33,19 @@ export interface CreatePersonRequest {
   email?: string
   phone?: string
   birthDate?: string
+  numeroLegendario?: string
+  cpf?: string
+  uf?: string
+  cidade?: string
+  cep?: string
+  jaServiu?: boolean
+  certificado?: boolean
+  problemaDeSaude?: boolean
+  igreja?: string
+  nomeLider?: string
+  numeroLider?: string
+  nomeEsposa?: string
+  nomeMae?: string
+  numeroParente?: string
+  photoUrl?: string
 }

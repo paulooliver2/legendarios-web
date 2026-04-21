@@ -8,6 +8,7 @@ export const ROUTES = {
   },
   EVENTS: {
     LIST: '/events',
+    TOP: '/events/top',
     DETAIL: '/events/:id',
     CREATE: '/events/new',
   },
@@ -15,8 +16,9 @@ export const ROUTES = {
     LIST: '/memberships',
     REVIEW: '/events/:eventId/memberships',
   },
-  MANADAS: {
-    LIST: '/manadas',
-    DETAIL: '/manadas/:id',
+  PISTAS: {
+    LIST: '/pistas',
+    DETAIL: '/pistas/:id',
   },
+  PROFILE: '/profile',
 } as const

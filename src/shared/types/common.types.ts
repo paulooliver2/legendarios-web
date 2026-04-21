@@ -1,4 +1,5 @@
-export type SystemRole = 'ADMIN' | 'OPERATOR' | 'TEAM_LEADER' | 'VIEWER'
+export type SystemRole = 'ADMIN' | 'OPERATOR' | 'TEAM_LEADER' | 'PISTA_LEADER' | 'VIEWER'
+export type PistaMemberRole = 'MEMBRO' | 'SUB_COORDENADOR' | 'COORDENADOR' | 'LIDER'
 export type JourneyStatus = 'PRE_LEGENDARIO' | 'LEGENDARIO'
 export type EventMembershipStatus =
   | 'PRE_INSCRITO'
@@ -9,6 +10,7 @@ export type EventMembershipStatus =
   | 'CANCELADO'
 export type EventRole = 'PARTICIPANTE' | 'SERVO' | 'LIDER' | 'COORDENADOR'
 export type TeamRole = 'MEMBRO' | 'LIDER'
+export type EventStatus = 'PLANEJAMENTO' | 'INSCRICOES_ABERTAS' | 'EM_ANDAMENTO' | 'FINALIZADO'
 export type EventType = 'TOP' | 'RPM' | 'OUTRO'
 
 export interface AuthUser {
@@ -16,6 +18,7 @@ export interface AuthUser {
   name: string
   systemRole: SystemRole
   journeyStatus: JourneyStatus
+  pistaId?: string
 }
 
 export interface PaginatedResponse<T> {

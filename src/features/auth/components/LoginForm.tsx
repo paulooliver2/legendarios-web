@@ -3,49 +3,57 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useAuth } from '../hooks/useAuth'
 
-const loginSchema = z.object({
-  username: z.string().min(3, 'Usuário deve ter pelo menos 3 caracteres'),
-  password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+const schema = z.object({
+  username: z.string().min(3, 'Mínimo 3 caracteres'),
+  password: z.string().min(6, 'Mínimo 6 caracteres'),
 })
 
-type LoginFormData = z.infer<typeof loginSchema>
+type FormData = z.infer<typeof schema>
 
 export function LoginForm() {
   const { login, isLoggingIn, loginError } = useAuth()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) })
-
-  const onSubmit = (data: LoginFormData) => {
-    login(data)
-  }
-
-  const errorMessage = loginError
-    ? 'Usuário ou senha inválidos.'
-    : null
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
-      <h1>Legendários</h1>
-
+    <form onSubmit={handleSubmit((d) => login(d))} className="space-y-4">
       <div>
-        <label htmlFor="username">Usuário</label>
-        <input id="username" {...register('username')} autoComplete="username" />
-        {errors.username && <span>{errors.username.message}</span>}
+        <label className="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
+        <input
+          {...register('username')}
+          autoComplete="username"
+          className="w-full px-3 py-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          placeholder="seu.usuario"
+        />
+        {errors.username && (
+          <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor="password">Senha</label>
-        <input id="password" type="password" {...register('password')} autoComplete="current-password" />
-        {errors.password && <span>{errors.password.message}</span>}
+        <label className="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+        <input
+          {...register('password')}
+          type="password"
+          autoComplete="current-password"
+          className="w-full px-3 py-2.5 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+          placeholder="••••••"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+        )}
       </div>
 
-      {errorMessage && <span style={{ color: 'red' }}>{errorMessage}</span>}
+      {loginError && (
+        <p className="text-red-500 text-sm text-center">Usuário ou senha inválidos.</p>
+      )}
 
-      <button type="submit" disabled={isLoggingIn}>
+      <button
+        type="submit"
+        disabled={isLoggingIn}
+        className="w-full py-2.5 rounded-lg bg-primary hover:bg-primary-dark text-white font-semibold text-sm transition-colors disabled:opacity-60"
+      >
         {isLoggingIn ? 'Entrando...' : 'Entrar'}
       </button>
     </form>

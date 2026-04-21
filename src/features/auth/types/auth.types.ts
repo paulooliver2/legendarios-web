@@ -3,6 +3,15 @@ export interface LoginRequest {
   password: string
 }
 
+export interface RegisterRequest {
+  fullName: string
+  username: string
+  password: string
+  email?: string
+  phone?: string
+  pistaId?: string
+}
+
 export interface LoginResponse {
   accessToken: string
   refreshToken: string
